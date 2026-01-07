@@ -40,6 +40,27 @@
             <button type="submit">Publier l’annonce</button>
         </form>
     </div>
+<div class="article-card" onclick="openProduct()">
+  <img src="img/tshirt1.jpg" alt="T-shirt">
+  <h3>T-shirt Rouge</h3>
+  <p>15 €</p>
+</div>
+<script>
+function openProduct() {
+  const product = {
+    name: "T-shirt Rouge",
+    price: "15 €",
+    photos: [
+      "img/tshirt1.jpg",
+      "img/tshirt2.jpg",
+      "img/tshirt3.jpg"
+    ]
+  };
+
+  localStorage.setItem("product", JSON.stringify(product));
+  window.location.href = "produit.html";
+}
+</script>
 
     <script src="add-product.js"></script>
 </body>

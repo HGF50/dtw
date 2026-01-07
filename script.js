@@ -74,3 +74,29 @@ function filterProducts() {
 
 // Affichage initial
 displayProducts(productsData);
+// Charger le produit
+const product = JSON.parse(localStorage.getItem("product"));
+
+if (product) {
+  document.getElementById("product-name").textContent = product.name;
+  document.getElementById("product-price").textContent = product.price;
+  document.getElementById("main-image").src = product.photos[0];
+
+  const thumbs = document.getElementById("thumbnails");
+  product.photos.forEach(photo => {
+    const img = document.createElement("img");
+    img.src = photo;
+    img.onclick = () => {
+      document.getElementById("main-image").src = photo;
+    };
+    thumbs.appendChild(img);
+  });
+}
+
+// Ajouter au panier
+function addToCart() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cart.push(product);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  alert("Produit ajouté au panier 🛒");
+}
