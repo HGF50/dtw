@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter une annonce - Vinted Clone</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="signup-container">
+        <h2>Ajouter une annonce</h2>
+        <form id="product-form">
+            <div class="input-group">
+                <input type="text" id="product-name" required placeholder=" ">
+                <label for="product-name">Nom du produit</label>
+                <small class="error"></small>
+            </div>
+
+            <div class="input-group">
+                <input type="number" id="product-price" required placeholder=" ">
+                <label for="product-price">Prix (€)</label>
+                <small class="error"></small>
+            </div>
+
+            <div class="input-group">
+                <select id="product-category" required>
+                    <option value="">--Catégorie--</option>
+                    <option value="vetements">Vêtements</option>
+                    <option value="chaussures">Chaussures</option>
+                    <option value="accessoires">Accessoires</option>
+                </select>
+                <small class="error"></small>
+            </div>
+
+            <div class="input-group">
+                <input type="file" id="product-image" accept="image/*" required>
+                <small class="error"></small>
+            </div>
+
+            <button type="submit">Publier l’annonce</button>
+        </form>
+    </div>
+
+    <script src="add-product.js"></script>
+</body>
+</html>

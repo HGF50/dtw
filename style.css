@@ -1,0 +1,238 @@
+
+/* Reset minimal */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Body */
+body {
+    background: #f6f6f6;
+    color: #333;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+header .logo {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+header input {
+    flex: 1;
+    margin: 0 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+header button {
+    background: #5a86ff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Filters */
+.filters {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    background: #fff;
+    margin-top: 5px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.filters select, .filters input {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Products Grid */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+    padding: 10px;
+}
+
+/* Product Card */
+.product-card {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.product-card:hover {
+    transform: scale(1.03);
+}
+
+.product-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.product-card .info {
+    padding: 5px 10px;
+    flex: 1;
+}
+
+.product-card .info h4 {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.product-card .info p {
+    font-size: 0.8rem;
+    color: #555;
+}
+
+.product-card button {
+    margin: 5px 10px 10px;
+    padding: 5px;
+    background: #5a86ff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 15px;
+    background: #fff;
+    margin-top: 10px;
+}
+
+/* Mobile-friendly */
+@media(max-width: 480px){
+    .filters {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    header input {
+        margin: 0 5px;
+    }
+}
+/* Container inscription */
+.signup-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.signup-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.signup-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.signup-container input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.signup-container button {
+    padding: 10px;
+    background: #5a86ff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.signup-container button:hover {
+    background: #3f66d1;
+}
+
+.signup-container p {
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.signup-container a {
+    color: #5a86ff;
+    text-decoration: none;
+}
+/* Input animé */
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px 10px 10px 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: none;
+    outline: none;
+    transition: 0.3s;
+}
+
+.input-group label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: #aaa;
+    pointer-events: none;
+    transition: 0.3s;
+}
+
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label {
+    top: -10px;
+    left: 5px;
+    font-size: 0.75rem;
+    color: #5a86ff;
+    background: #fff;
+    padding: 0 3px;
+}
+
+/* Erreurs */
+.input-group small.error {
+    color: red;
+    font-size: 0.7rem;
+    position: absolute;
+    bottom: -15px;
+    left: 5px;
+    display: none;
+}
+
+/* Bouton hover */
+.signup-container button:hover {
+    background: #3f66d1;
+}
