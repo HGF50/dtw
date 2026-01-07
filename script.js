@@ -1,102 +1,132 @@
-// Exemple de produits
+/* ===========================
+   DONNÉES PRODUITS (LISTE)
+=========================== */
 const productsData = [
-    {name: "T-shirt Bleu", category: "vetements", size: "M", price: 15, image: "https://via.placeholder.com/150"},
-    {name: "Chaussures Nike", category: "chaussures", size: "L", price: 50, image: "https://via.placeholder.com/150"},
-    {name: "Sac à main", category: "accessoires", size: "S", price: 25, image: "https://via.placeholder.com/150"},
-    {name: "Jean", category: "vetements", size: "M", price: 30, image: "https://via.placeholder.com/150"}
+  {
+    id: 1,
+    name: "T-shirt Bleu",
+    category: "vetements",
+    size: "M",
+    price: 15,
+    images: [
+      "https://via.placeholder.com/300",
+      "https://via.placeholder.com/300/0000FF",
+      "https://via.placeholder.com/300/00FFFF"
+    ]
+  },
+  {
+    id: 2,
+    name: "Chaussures Nike",
+    category: "chaussures",
+    size: "L",
+    price: 50,
+    images: [
+      "https://via.placeholder.com/300",
+      "https://via.placeholder.com/300/FF0000"
+    ]
+  },
+  {
+    id: 3,
+    name: "Sac à main",
+    category: "accessoires",
+    size: "S",
+    price: 25,
+    images: [
+      "https://via.placeholder.com/300"
+    ]
+  }
 ];
 
-let cart = [];
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-// Afficher les produits
+/* ===========================
+   AFFICHER LES PRODUITS
+=========================== */
 function displayProducts(products) {
-    const container = document.getElementById("products");
-    container.innerHTML = "";
-    products.forEach(product => {
-        const card = document.createElement("div");
-        card.classList.add("product-card");
-        card.innerHTML = `
-            <img src="${product.image}" alt="${product.name}">
-            <div class="info">
-                <h4>${product.name}</h4>
-                <p>Catégorie: ${product.category}</p>
-                <p>Taille: ${product.size}</p>
-                <p>Prix: ${product.price}€</p>
-                <button onclick="addToCart('${product.name}', ${product.price}, '${product.image}')">Ajouter au panier</button>
-            </div>
-        `;
-        container.appendChild(card);
-    });
+  const container = document.getElementById("products");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  products.forEach(product => {
+    const card = document.createElement("div");
+    card.className = "product-card";
+
+    card.innerHTML = `
+      <img src="${product.images[0]}" alt="${product.name}">
+      <h4>${product.name}</h4>
+      <p>${product.price} €</p>
+    `;
+
+    // 👉 clic vers page produit
+    card.onclick = () => openProduct(product);
+
+    container.appendChild(card);
+  });
 }
 
-// Ajouter au panier
-function addToCart(name, price, image) {
-    const exists = cart.find(item => item.name === name);
-    if (exists) {
-        alert("Ce produit est déjà dans le panier !");
-        return;
-    }
-    cart.push({name, price, image});
-    alert(`${name} ajouté au panier !`);
-    console.log(cart);
+/* ===========================
+   OUVRIR PAGE PRODUIT
+=========================== */
+function openProduct(product) {
+  localStorage.setItem("product", JSON.stringify(product));
+  window.location.href = "produit.html";
 }
 
-// Filtrage
-document.getElementById("search").addEventListener("input", e => {
-    const searchTerm = e.target.value.toLowerCase();
-    const filtered = productsData.filter(p => p.name.toLowerCase().includes(searchTerm));
-    displayProducts(filtered);
-});
-
-document.getElementById("category").addEventListener("change", e => {
-    filterProducts();
-});
-document.getElementById("size").addEventListener("change", e => {
-    filterProducts();
-});
-document.getElementById("max-price").addEventListener("input", e => {
-    filterProducts();
-});
-
+/* ===========================
+   FILTRES
+=========================== */
 function filterProducts() {
-    const cat = document.getElementById("category").value;
-    const size = document.getElementById("size").value;
-    const maxPrice = document.getElementById("max-price").value;
+  const search = document.getElementById("search")?.value.toLowerCase() || "";
+  const category = document.getElementById("category")?.value || "";
+  const size = document.getElementById("size")?.value || "";
+  const maxPrice = document.getElementById("max-price")?.value || "";
 
-    let filtered = productsData.filter(p => {
-        return (!cat || p.category === cat) &&
-               (!size || p.size === size) &&
-               (!maxPrice || p.price <= maxPrice);
-    });
+  const filtered = productsData.filter(p =>
+    (!search || p.name.toLowerCase().includes(search)) &&
+    (!category || p.category === category) &&
+    (!size || p.size === size) &&
+    (!maxPrice || p.price <= maxPrice)
+  );
 
-    displayProducts(filtered);
+  displayProducts(filtered);
 }
 
-// Affichage initial
-displayProducts(productsData);
-// Charger le produit
+/* ===========================
+   PAGE PRODUIT
+=========================== */
 const product = JSON.parse(localStorage.getItem("product"));
 
-if (product) {
+if (product && document.getElementById("product-name")) {
   document.getElementById("product-name").textContent = product.name;
-  document.getElementById("product-price").textContent = product.price;
-  document.getElementById("main-image").src = product.photos[0];
+  document.getElementById("product-price").textContent = product.price + " €";
 
+  const mainImage = document.getElementById("main-image");
   const thumbs = document.getElementById("thumbnails");
-  product.photos.forEach(photo => {
+
+  mainImage.src = product.images[0];
+
+  product.images.forEach(imgSrc => {
     const img = document.createElement("img");
-    img.src = photo;
-    img.onclick = () => {
-      document.getElementById("main-image").src = photo;
-    };
+    img.src = imgSrc;
+    img.onclick = () => mainImage.src = imgSrc;
     thumbs.appendChild(img);
   });
 }
 
-// Ajouter au panier
-function addToCart() {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+/* ===========================
+   PANIER
+=========================== */
+function addProductToCart() {
+  const product = JSON.parse(localStorage.getItem("product"));
+  if (!product) return;
+
   cart.push(product);
   localStorage.setItem("cart", JSON.stringify(cart));
   alert("Produit ajouté au panier 🛒");
 }
+
+/* ===========================
+   INIT
+=========================== */
+displayProducts(productsData);
