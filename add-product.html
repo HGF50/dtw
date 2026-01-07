@@ -1,67 +1,61 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajouter une annonce - Vinted Clone</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ajouter une annonce - Vinted Clone</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="signup-container">
-        <h2>Ajouter une annonce</h2>
-        <form id="product-form">
-            <div class="input-group">
-                <input type="text" id="product-name" required placeholder=" ">
-                <label for="product-name">Nom du produit</label>
-                <small class="error"></small>
-            </div>
 
-            <div class="input-group">
-                <input type="number" id="product-price" required placeholder=" ">
-                <label for="product-price">Prix (€)</label>
-                <small class="error"></small>
-            </div>
+<header class="top-bar">
+  <button onclick="history.back()">←</button>
+  <h1>Nouvelle annonce</h1>
+</header>
 
-            <div class="input-group">
-                <select id="product-category" required>
-                    <option value="">--Catégorie--</option>
-                    <option value="vetements">Vêtements</option>
-                    <option value="chaussures">Chaussures</option>
-                    <option value="accessoires">Accessoires</option>
-                </select>
-                <small class="error"></small>
-            </div>
+<main class="add-product-page">
 
-            <div class="input-group">
-                <input type="file" id="product-image" accept="image/*" required>
-                <small class="error"></small>
-            </div>
+  <form id="product-form" class="product-form">
 
-            <button type="submit">Publier l’annonce</button>
-        </form>
+    <!-- Nom -->
+    <div class="input-group">
+      <label>Nom du produit</label>
+      <input type="text" id="product-name" placeholder="Ex : T-shirt Nike" required>
     </div>
-<div class="article-card" onclick="openProduct()">
-  <img src="img/tshirt1.jpg" alt="T-shirt">
-  <h3>T-shirt Rouge</h3>
-  <p>15 €</p>
-</div>
-<script>
-function openProduct() {
-  const product = {
-    name: "T-shirt Rouge",
-    price: "15 €",
-    photos: [
-      "img/tshirt1.jpg",
-      "img/tshirt2.jpg",
-      "img/tshirt3.jpg"
-    ]
-  };
 
-  localStorage.setItem("product", JSON.stringify(product));
-  window.location.href = "produit.html";
-}
-</script>
+    <!-- Prix -->
+    <div class="input-group">
+      <label>Prix (€)</label>
+      <input type="number" id="product-price" placeholder="Ex : 15" required>
+    </div>
 
-    <script src="add-product.js"></script>
+    <!-- Catégorie -->
+    <div class="input-group">
+      <label>Catégorie</label>
+      <select id="product-category" required>
+        <option value="">Choisir</option>
+        <option value="vetements">Vêtements</option>
+        <option value="chaussures">Chaussures</option>
+        <option value="accessoires">Accessoires</option>
+      </select>
+    </div>
+
+    <!-- Images -->
+    <div class="input-group">
+      <label>Photos du produit</label>
+      <input type="file" id="product-images" accept="image/*" multiple required>
+      <small>Ajoute jusqu’à 5 photos</small>
+    </div>
+
+    <!-- Bouton -->
+    <button type="submit" class="publish-btn">
+      Publier l’annonce
+    </button>
+
+  </form>
+
+</main>
+
+<script src="add-product.js"></script>
 </body>
 </html>

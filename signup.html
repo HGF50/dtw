@@ -7,22 +7,22 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  
+
 <div class="signup-container">
     <h2>Créer un compte</h2>
 
     <form id="signup-form" action="https://formspree.io/f/mdakqked" method="POST">
-        <label for="name">Nom complet</label>
-        <input type="text" id="name" name="name" placeholder="Votre nom" required>
+        <label>Nom complet</label>
+        <input type="text" name="name" placeholder="Votre nom" required>
 
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="exemple@email.com" required>
+        <label>Email</label>
+        <input type="email" name="email" placeholder="exemple@email.com" required>
 
-        <label for="password">Mot de passe</label>
-        <input type="password" id="password" name="password" placeholder="Mot de passe" required>
+        <label>Mot de passe</label>
+        <input type="password" id="password" name="password" required>
 
-        <label for="confirm-password">Confirmer le mot de passe</label>
-        <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirmer le mot de passe" required>
+        <label>Confirmer le mot de passe</label>
+        <input type="password" id="confirm-password" required>
 
         <button type="submit">S’inscrire</button>
     </form>
@@ -32,7 +32,16 @@
 const form = document.getElementById('signup-form');
 
 form.addEventListener('submit', async (e) => {
-    e.preventDefault(); // Empêche le rechargement de la page
+    e.preventDefault();
+
+    const password = document.getElementById('password').value;
+    const confirm = document.getElementById('confirm-password').value;
+
+    // ✅ Vérification mot de passe
+    if (password !== confirm) {
+        alert("Les mots de passe ne correspondent pas ❌");
+        return;
+    }
 
     const formData = new FormData(form);
 
@@ -45,8 +54,14 @@ form.addEventListener('submit', async (e) => {
 
         if (response.ok) {
             alert("Inscription réussie ✅");
-            form.reset(); // Vide le formulaire
-            window.location.href = 'index.html'; // Redirection vers la page des articles
+
+            // (optionnel) sauvegarde locale
+           localStorage.setItem("user", JSON.stringify({
+    name: formData.get("name"),
+    email: formData.get("email")
+}));
+
+            window.location.href = "articles.html";
         } else {
             alert("Erreur lors de l'inscription ❌");
         }
