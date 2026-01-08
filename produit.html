@@ -2,70 +2,26 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Détail Produit</title>
-<link rel="stylesheet" href="style.css">
+<title>Produit</title>
 </head>
 <body>
 
-<div class="product-page">
+<h1>Détail du produit</h1>
+<div id="product"></div>
 
-    <!-- Galerie -->
-    <div class="product-gallery">
-        <img id="main-image" src="" alt="Produit">
-        <div class="gallery-thumbs" id="gallery-thumbs"></div>
-        <span class="like-btn" id="like-btn">🤍</span>
-        <span id="like-count"></span>
-    </div>
+<script>
+const product = JSON.parse(localStorage.getItem("product"));
 
-    <!-- Info produit -->
-    <div class="product-info">
-        <h1 id="product-name"></h1>
-        <p class="product-summary" id="product-description"></p>
-        <p class="product-price" id="product-price"></p>
-<div class="product-fees">
-    <p>💼 Frais de protection : <strong id="product-fee">200 FCFA</strong></p>
-    <p class="total">
-        Total à payer :
-        <strong id="product-total"></strong>
-    </p>
-</div>
-
-        <div class="product-details">
-            <p><strong>Marque :</strong> <span id="product-brand"></span></p>
-            <p><strong>Taille :</strong> <span id="product-size"></span></p>
-            <p><strong>État :</strong> <span id="product-condition"></span></p>
-        </div>
-
-        <div class="product-actions">
-            <button id="buy-btn">Acheter</button>
-            <button id="message-btn">Message vendeur</button>
-        </div>
-    </div>
-
-</div>
-
-<script src="produit.js"></script>
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
-  import { getFirestore, doc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
-  import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-storage.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyCUxfmYYXJFBu5Km_QPtc6DHeuxyPLkeWs",
-    authDomain: "drop-ton-weh.firebaseapp.com",
-    projectId: "drop-ton-weh",
-    storageBucket: "drop-ton-weh.appspot.com",
-    messagingSenderId: "327745279064",
-    appId: "1:327745279064:web:ca31188fecdfb36f56e62d",
-    measurementId: "G-XKLE216M9V"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-  const storage = getStorage(app);
-
-  // Ici tu mets le code pour afficher le produit et gérer likes universels
+if (!product) {
+  document.body.innerHTML = "<p>Aucun produit trouvé</p>";
+} else {
+  document.getElementById("product").innerHTML = `
+    <img src="${product.image}" width="200">
+    <h2>${product.name}</h2>
+    <p>Prix : ${product.price} FCFA</p>
+    <p>${product.condition}</p>
+  `;
+}
 </script>
 
 </body>

@@ -139,3 +139,73 @@ main { max-width:500px; margin:40px auto; background:#fff; border-radius:12px; p
   main { margin:20px; padding:20px; }
   header { flex-direction:column; gap:10px; }
 }
+/* Conteneur des produits en grille */
+.products-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  justify-content: flex-start; /* ou center si tu veux centrer */
+}
+
+/* Carte produit */
+.product-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  width: 220px; /* taille fixe pour chaque carte */
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Image du produit */
+.product-card img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+/* Info produit */
+.product-card .info h4 {
+  margin: 5px 0;
+}
+
+.product-card .price {
+  font-weight: bold;
+  color: #2c7a32;
+}
+
+.product-card .condition {
+  font-size: 0.9em;
+  color: #555;
+}
+
+/* Boutons */
+.product-card .view-btn {
+  margin-top: 10px;
+  padding: 5px 10px;
+  border: none;
+  background-color: #2c7a32;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.like-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.like-btn.active {
+  color: red;
+}
