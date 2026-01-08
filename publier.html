@@ -1,155 +1,30 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Publier un article</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Produit</title>
 </head>
 <body>
 
-<header>
-  <div class="logo">MonVinted</div>
-  <button onclick="window.location.href='index.html'">Retour</button>
-</header>
+<h1>Détail du produit</h1>
+<div id="product"></div>
 
-<main>
-  <h1 class="publish-title">Publier un article</h1>
+<script>
+const product = JSON.parse(localStorage.getItem("product"));
 
-  <form id="publier-form" class="publish-form">
-    <div class="form-group">
-      <label for="name">Titre de l'article</label>
-      <input type="text" id="name" placeholder="Ex: T-shirt Vert" required>
-    </div>
-
-    <div class="form-group">
-      <label for="brand">Marque</label>
-      <input type="text" id="brand" placeholder="Ex: Nike">
-    </div>
-
-    <div class="form-group">
-      <label for="category">Catégorie</label>
-      <select id="category" required>
-        <option value="">Sélectionnez une catégorie</option>
-        <option value="vetements">Vêtements</option>
-        <option value="chaussures">Chaussures</option>
-        <option value="accessoires">Accessoires</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label for="size">Taille / Pointure</label>
-      <input type="text" id="size" placeholder="Ex: M ou 40 ou N/A">
-    </div>
-
-    <div class="form-group">
-      <label for="condition">État</label>
-      <select id="condition" required>
-        <option value="">Sélectionnez un état</option>
-        <option value="Très bon état avec étiquette">Très bon état avec étiquette</option>
-        <option value="Bon état">Bon état</option>
-        <option value="État correct">État correct</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label for="description">Description de l'article</label>
-      <textarea id="description" placeholder="Décrivez votre article..." required></textarea>
-    </div>
-
-    <div class="form-group">
-      <label for="price">Prix (FCFA)</label>
-      <input type="number" id="price" placeholder="Ex: 15000" required>
-    </div>
-
-    <div class="form-group">
-      <label for="images">Ajouter des images</label>
-      <input type="file" id="images" multiple accept="image/*">
-      <div class="image-preview"></div>
-    </div>
-
-    <button type="submit">Publier l’article</button>
-  </form>
-</main>
-
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
-  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
-  import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-storage.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyCUxfmYYXJFBu5Km_QPtc6DHeuxyPLkeWs",
-    authDomain: "drop-ton-weh.firebaseapp.com",
-    projectId: "drop-ton-weh",
-    storageBucket: "drop-ton-weh.appspot.com",
-    messagingSenderId: "327745279064",
-    appId: "1:327745279064:web:ca31188fecdfb36f56e62d",
-    measurementId: "G-XKLE216M9V"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-  const storage = getStorage(app);
-
-  const form = document.getElementById("publier-form");
-  const imagesInput = document.getElementById("images");
-  const previewContainer = document.querySelector(".image-preview");
-
-  // Prévisualisation des images
-  imagesInput.addEventListener("change", () => {
-    previewContainer.innerHTML = "";
-    Array.from(imagesInput.files).forEach(file => {
-      const img = document.createElement("img");
-      img.src = URL.createObjectURL(file);
-      previewContainer.appendChild(img);
-    });
-  });
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const name = document.getElementById("name").value;
-    const brand = document.getElementById("brand").value;
-    const category = document.getElementById("category").value;
-    const size = document.getElementById("size").value;
-    const condition = document.getElementById("condition").value;
-    const price = parseInt(document.getElementById("price").value);
-    const description = document.getElementById("description").value;
-
-    const files = imagesInput.files;
-    const imagesUrls = [];
-
-    // Upload sur Firebase Storage
-    for (let i = 0; i < files.length; i++) {
-      const fileRef = ref(storage, `products/${Date.now()}_${files[i].name}`);
-      await uploadBytes(fileRef, files[i]);
-      const url = await getDownloadURL(fileRef);
-      imagesUrls.push(url);
-    }
-
-    try {
-      await addDoc(collection(db, "products"), {
-        name,
-        brand,
-        category,
-        size,
-        condition,
-        price: price + 200, // frais de protection
-        description,
-        images: imagesUrls,
-        createdAt: new Date(),
-        likes: 0
-      });
-
-      alert("Article publié avec succès !");
-      form.reset();
-      previewContainer.innerHTML = "";
-    } catch (err) {
-      console.error(err);
-      alert("Erreur lors de la publication !");
-    }
-  });
+if (!product) {
+  document.body.innerHTML = "<p>Aucun produit trouvé</p>";
+} else {
+  document.getElementById("product").innerHTML = `
+    <img src="${product.image}" width="200">
+    <h2>${product.name}</h2>
+    <p>Prix : ${product.price} FCFA</p>
+    <p>${product.condition}</p>
+  `;
+}
 </script>
 
 </body>
 </html>
+
+
