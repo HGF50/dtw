@@ -3,34 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Marketplace</title>
+<title>MonVinted</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
-    <div class="logo">MonVinted</div>
-    <input type="text" id="search" placeholder="Rechercher un produit...">
-    <button onclick="window.location.href='publier.html'">Publier un article</button>
+  <div class="logo">MonVinted</div>
+  <input type="text" id="search" placeholder="Rechercher un produit...">
+  <button onclick="window.location.href='publier.html'">Publier un article</button>
 </header>
 
-
 <div class="filters">
+  <div class="filter-group">
+    <label for="category">Catégorie</label>
     <select id="category">
-        <option value="">Catégorie</option>
-        <option value="vetements">Vêtements</option>
-        <option value="chaussures">Chaussures</option>
-        <option value="accessoires">Accessoires</option>
+      <option value="">Toutes</option>
+      <option value="vetements">Vêtements</option>
+      <option value="chaussures">Chaussures</option>
+      <option value="accessoires">Accessoires</option>
     </select>
+  </div>
+
+  <div class="filter-group">
+    <label for="size">Taille / Pointure</label>
     <select id="size">
-        <option value="">Taille / Pointure</option>
-        <option value="S">S</option>
-        <option value="M">M</option>
-        <option value="L">L</option>
-        <option value="40">40</option>
-        <option value="41">41</option>
+      <option value="">Toutes</option>
+      <option value="S">S</option>
+      <option value="M">M</option>
+      <option value="L">L</option>
+      <option value="40">40</option>
+      <option value="41">41</option>
     </select>
-    <input type="number" id="max-price" placeholder="Prix max">
+  </div>
+
+  <div class="filter-group">
+    <label for="max-price">Prix max (FCFA)</label>
+    <input type="number" id="max-price" placeholder="Ex: 20000">
+  </div>
+</div>
+
 </div>
 
 <div id="products" class="products-grid"></div>
@@ -39,6 +51,115 @@
     &copy; 2026 MonVinted - Tous droits réservés
 </footer>
 
-<script src="script.js"></script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+  import { getFirestore, collection, getDocs, doc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+  import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-storage.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCUxfmYYXJFBu5Km_QPtc6DHeuxyPLkeWs",
+    authDomain: "drop-ton-weh.firebaseapp.com",
+    projectId: "drop-ton-weh",
+    storageBucket: "drop-ton-weh.appspot.com",
+    messagingSenderId: "327745279064",
+    appId: "1:327745279064:web:ca31188fecdfb36f56e62d",
+    measurementId: "G-XKLE216M9V"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const storage = getStorage(app);
+
+  const productsContainer = document.getElementById("products");
+  const searchInput = document.getElementById("search");
+  const categoryInput = document.getElementById("category");
+  const sizeInput = document.getElementById("size");
+  const maxPriceInput = document.getElementById("max-price");
+
+  let products = [];
+
+  // Récupérer les produits en temps réel
+  const productsCol = collection(db, "products");
+  onSnapshot(productsCol, async (snapshot) => {
+    products = [];
+    for (let docSnap of snapshot.docs) {
+      let product = docSnap.data();
+      product.id = docSnap.id;
+
+      // Récupérer la première image depuis Storage
+      if(product.images && product.images.length > 0){
+        const urls = [];
+        for(let imgPath of product.images){
+          const imgRef = ref(storage, imgPath);
+          const url = await getDownloadURL(imgRef);
+          urls.push(url);
+        }
+        product.images = urls;
+      }
+
+      products.push(product);
+    }
+    displayProducts(products);
+  });
+
+  function displayProducts(list){
+    productsContainer.innerHTML = "";
+    if(list.length === 0){
+      productsContainer.innerHTML = "<p>Aucun produit trouvé.</p>";
+      return;
+    }
+
+    list.forEach(product => {
+      const card = document.createElement("div");
+      card.className = "product-card";
+
+      let sizeText = product.size ? (product.category==="chaussures"?"Pointure: ":"Taille: ") + product.size : "";
+
+      // Prix + frais 200 FCFA
+      const totalPrice = Number(product.price) + 200;
+
+      card.innerHTML = `
+        <img src="${product.images[0] || ''}" alt="${product.name}">
+        <div class="info">
+          <h4>${product.name}</h4>
+          <p>${sizeText}</p>
+          <p><strong>État :</strong> ${product.condition}</p>
+          <p><strong>Prix :</strong> ${totalPrice.toLocaleString()} FCFA</p>
+        </div>
+        <button class="view-btn">Voir le produit</button>
+      `;
+
+      card.querySelector(".view-btn").onclick = () => {
+        localStorage.setItem("product", JSON.stringify(product));
+        window.location.href = "produit.html";
+      };
+
+      productsContainer.appendChild(card);
+    });
+  }
+
+  function filterProducts(){
+    const search = searchInput.value.toLowerCase();
+    const category = categoryInput.value;
+    const size = sizeInput.value;
+    const maxPrice = maxPriceInput.value;
+
+    const filtered = products.filter(p => {
+      const totalPrice = Number(p.price) + 200;
+      return p.name.toLowerCase().includes(search) &&
+             (!category || p.category === category) &&
+             (!size || p.size === size) &&
+             (!maxPrice || totalPrice <= maxPrice);
+    });
+
+    displayProducts(filtered);
+  }
+
+  searchInput.addEventListener("input", filterProducts);
+  categoryInput.addEventListener("change", filterProducts);
+  sizeInput.addEventListener("change", filterProducts);
+  maxPriceInput.addEventListener("input", filterProducts);
+</script>
+
 </body>
 </html>

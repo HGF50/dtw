@@ -23,6 +23,13 @@
         <h1 id="product-name"></h1>
         <p class="product-summary" id="product-description"></p>
         <p class="product-price" id="product-price"></p>
+<div class="product-fees">
+    <p>💼 Frais de protection : <strong id="product-fee">200 FCFA</strong></p>
+    <p class="total">
+        Total à payer :
+        <strong id="product-total"></strong>
+    </p>
+</div>
 
         <div class="product-details">
             <p><strong>Marque :</strong> <span id="product-brand"></span></p>
@@ -39,5 +46,27 @@
 </div>
 
 <script src="produit.js"></script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+  import { getFirestore, doc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+  import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-storage.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCUxfmYYXJFBu5Km_QPtc6DHeuxyPLkeWs",
+    authDomain: "drop-ton-weh.firebaseapp.com",
+    projectId: "drop-ton-weh",
+    storageBucket: "drop-ton-weh.appspot.com",
+    messagingSenderId: "327745279064",
+    appId: "1:327745279064:web:ca31188fecdfb36f56e62d",
+    measurementId: "G-XKLE216M9V"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const storage = getStorage(app);
+
+  // Ici tu mets le code pour afficher le produit et gérer likes universels
+</script>
+
 </body>
 </html>

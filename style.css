@@ -1,566 +1,141 @@
+/* RESET */
+* { margin:0; padding:0; box-sizing:border-box; font-family:Arial, sans-serif; }
 
-/* ================= RESET ================= */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
+/* BODY */
+body { background:#f5f5f5; color:#333; }
 
-/* ================= BODY ================= */
-body {
-    background: #f6f6f6;
-    color: #333;
-}
-
-/* ================= HEADER ================= */
+/* HEADER */
+/* HEADER */
 header {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     align-items: center;
-    gap: 10px;
-    padding: 12px;
-    background: #fff;
+    padding: 15px 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    gap: 10px;
 }
 
 header .logo {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: bold;
-    color: #5a86ff;
+    color: green;
 }
 
-header input {
-    width: 100%;
-    min-width: 200px;
-    padding: 8px 12px;
+header input[type="text"] {
+    flex: 1;
+    min-width: 180px;
+    padding: 10px 14px;
     border-radius: 20px;
     border: 1px solid #ccc;
     outline: none;
+    transition: border-color 0.2s;
 }
 
-header input:focus {
-    border-color: #5a86ff;
+header input[type="text"]:focus {
+    border-color: green;
 }
 
 header button {
-    background: #5a86ff;
-    color: white;
-    border: none;
-    padding: 8px 14px;
+    padding: 10px 18px;
     border-radius: 20px;
+    border: none;
+    background-color: green;
+    color: #fff;
     cursor: pointer;
-    white-space: nowrap;
+    transition: 0.2s;
+}
+header button:hover {
+    background-color: #0b7a0b;
 }
 
-/* ================= FILTERS ================= */
+/* FILTERS */
 .filters {
     display: flex;
-    gap: 10px;
-    padding: 12px;
-    background: #fff;
-    margin-top: 6px;
     flex-wrap: wrap;
-}
-
-.filters select,
-.filters input {
-    padding: 8px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-}
-
-/* ================= PRODUCTS GRID ================= */
-.products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     gap: 15px;
-    padding: 15px;
+    padding: 15px 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    border-radius: 12px;
+    margin: 15px auto;
+    max-width: 1000px;
 }
 
-/* ================= PRODUCT CARD ================= */
-.product-card {
-    background: #fff;
-    border-radius: 12px;
-    overflow: hidden;
+.filter-group {
     display: flex;
     flex-direction: column;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    transition: transform 0.2s;
+    flex: 1 1 150px;
 }
 
-.product-card:hover {
-    transform: scale(1.03);
-}
-
-.product-card img {
-    width: 100%;
-    height: 160px;
-    object-fit: cover;
-}
-
-.product-card .info {
-    padding: 10px;
-    flex: 1;
-}
-
-.product-card .info h4 {
-    font-size: 0.95rem;
-    margin-bottom: 5px;
-}
-
-.product-card .info p {
+.filter-group label {
+    font-weight: bold;
     font-size: 0.85rem;
-    color: #666;
+    margin-bottom: 5px;
+    color: #333;
 }
 
-.product-card button {
-    margin: 10px;
-    padding: 8px;
-    background: #5a86ff;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-/* ================= FOOTER ================= */
-footer {
-    text-align: center;
-    padding: 15px;
-    background: #fff;
-    margin-top: 15px;
-    font-size: 0.9rem;
-}
-
-/* ================= SIGNUP ================= */
-.signup-container {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 25px;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.signup-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.signup-container form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.signup-container input {
-    padding: 10px;
+.filter-group select,
+.filter-group input[type="number"] {
+    padding: 10px 12px;
     border-radius: 8px;
     border: 1px solid #ccc;
+    outline: none;
+    transition: border-color 0.2s;
 }
 
-.signup-container button {
-    padding: 10px;
-    background: #5a86ff;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
+.filter-group select:focus,
+.filter-group input[type="number"]:focus {
+    border-color: green;
 }
 
-.signup-container button:hover {
-    background: #3f66d1;
-}
-
-.signup-container p {
-    text-align: center;
-    font-size: 0.9rem;
-}
-
-.signup-container a {
-    color: #5a86ff;
-    text-decoration: none;
-}
-
-/* ================= INPUT ANIMÉ ================= */
-.input-group {
-    position: relative;
-}
-
-.input-group input {
-    width: 100%;
-    padding: 12px 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    background: none;
-}
-
-.input-group label {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    color: #aaa;
-    transition: 0.3s;
-    pointer-events: none;
-}
-
-.input-group input:focus + label,
-.input-group input:not(:placeholder-shown) + label {
-    top: -8px;
-    font-size: 0.75rem;
-    color: #5a86ff;
-    background: #fff;
-    padding: 0 4px;
-}
-
-/* ================= PRODUCT PAGE ================= */
-.product-header {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    background: #fff;
-}
-
-.product-header button {
-    background: none;
-    border: none;
-    font-size: 18px;
-}
-
-.slider img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-}
-
-.thumbnails {
-    display: flex;
-    gap: 10px;
-    padding: 10px;
-    overflow-x: auto;
-}
-
-.thumbnails img {
-    width: 70px;
-    height: 70px;
-    object-fit: cover;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.product-info {
-    padding: 15px;
-}
-
-.product-info button {
-    width: 100%;
-    padding: 14px;
-    background: #5a86ff;
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-size: 16px;
-}
-
-/* ================= LIKE ================= */
-.like-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 22px;
-    cursor: pointer;
-}
-
-.like-btn.active {
-    color: red;
-    transform: scale(1.2);
-}
-
-/* ================= MOBILE ================= */
-@media (max-width: 480px) {
-    header {
-        grid-template-columns: 1fr;
-    }
-
-    header .logo {
-        text-align: center;
-    }
-
-    header button {
-        width: 100%;
-    }
-
+/* RESPONSIVE */
+@media (max-width: 600px) {
     .filters {
         flex-direction: column;
     }
-}
-.product-page {
-    max-width: 700px;
-    margin: auto;
-    padding: 15px;
+    .filter-group {
+        width: 100%;
+    }
 }
 
-.product-gallery {
-    position: relative;
-    text-align: center;
-}
 
-.product-gallery img {
-    width: 100%;
-    border-radius: 10px;
-    margin-bottom: 10px;
-}
+/* MAIN FORM */
+main { max-width:500px; margin:40px auto; background:#fff; border-radius:12px; padding:25px; box-shadow:0 4px 15px rgba(0,0,0,0.1); }
 
-.gallery-thumbs {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-}
+.publish-title { text-align:center; font-size:1.8rem; font-weight:bold; color:#333; margin-bottom:25px; }
 
-.gallery-thumbs img {
-    width: 70px;
-    height: 70px;
-    object-fit: cover;
-    border-radius: 8px;
-    cursor: pointer;
+.publish-form { display:flex; flex-direction:column; gap:15px; }
+.form-group { display:flex; flex-direction:column; gap:6px; }
+.form-group label { font-weight:bold; color:#444; font-size:0.9rem; }
+.publish-form input,
+.publish-form select,
+.publish-form textarea {
+  padding:12px; border-radius:8px; border:1px solid #ccc; outline:none; font-size:0.95rem;
+  transition:border-color 0.2s;
 }
+.publish-form input:focus,
+.publish-form select:focus,
+.publish-form textarea:focus { border-color:green; }
+.publish-form textarea { min-height:80px; resize:vertical; }
 
-.product-info h1 {
-    font-size: 1.6rem;
-    margin-bottom: 6px;
-}
+/* IMAGE UPLOAD */
+.image-preview { display:flex; gap:10px; margin-top:10px; }
+.image-preview img { width:80px; height:80px; object-fit:cover; border-radius:8px; border:1px solid #ccc; }
 
-.product-meta {
-    font-size: 0.9rem;
-    color: #555;
-    margin-bottom: 8px;
-    display: flex;
-    gap: 12px;
+/* BUTTON */
+.publish-form button {
+  padding:14px; background:green; color:#fff; font-size:1rem; font-weight:bold;
+  border-radius:8px; border:none; cursor:pointer; transition:0.2s;
 }
+.publish-form button:hover { background:#0b7a0b; }
 
-.product-price {
-    font-size: 1.4rem;
-    font-weight: bold;
-    margin: 10px 0;
-}
-
-.product-actions button {
-    width: 100%;
-    padding: 12px;
-    background: #5a86ff;
-    border: none;
-    color: white;
-    margin: 5px 0;
-    font-size: 1rem;
-    border-radius: 7px;
-    cursor: pointer;
-}
-
-.product-description {
-    margin-top: 15px;
-    line-height: 1.4;
-    color: #444;
-}
-body {
-    font-family: "Arial", sans-serif;
-    background: #f5f5f5;
-    margin: 0;
-    padding: 0;
-}
-
-.product-page {
-    max-width: 720px;
-    margin: 30px auto;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    padding: 20px;
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.product-gallery {
-    flex: 1 1 300px;
-}
-
-.product-gallery img#main-image {
-    width: 100%;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    object-fit: cover;
-}
-
-.gallery-thumbs {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-}
-
-.gallery-thumbs img {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 8px;
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: border 0.2s;
-}
-
-.gallery-thumbs img:hover {
-    border: 2px solid #5a86ff;
-}
-
-.product-info {
-    flex: 1 1 300px;
-}
-
-.product-info h1 {
-    font-size: 1.7rem;
-    margin: 0 0 5px;
-}
-
-.product-summary {
-    font-size: 0.95rem;
-    color: #555;
-    margin-bottom: 10px;
-}
-
-.product-price {
-    font-size: 1.6rem;
-    font-weight: bold;
-    margin-bottom: 15px;
-    color: #000;
-}
-
-.product-details p {
-    margin: 4px 0;
-    font-size: 0.95rem;
-    color: #555;
-}
-
-.product-details p strong {
-    color: #333;
-}
-
-.product-description {
-    margin-top: 15px;
-    font-size: 0.95rem;
-    line-height: 1.5;
-    color: #444;
-}
-
-.product-actions {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 15px;
-}
-
-.product-actions button {
-    flex: 1;
-    padding: 12px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-    transition: 0.2s;
-}
-
-#buy-btn {
-    background-color: #5a86ff;
-    color: white;
-}
-
-#buy-btn:hover {
-    background-color: #4170d1;
-}
-
-#offer-btn {
-    background-color: #ff9f43;
-    color: white;
-}
-
-#offer-btn:hover {
-    background-color: #e68a1f;
-}
-
-#message-btn {
-    background-color: #ccc;
-    color: #333;
-}
-
-#message-btn:hover {
-    background-color: #aaa;
-}
-
-.product-shipping, .product-bonus {
-    margin-top: 15px;
-    font-size: 0.9rem;
-    color: #555;
-    background: #f0f0f0;
-    padding: 10px;
-    border-radius: 8px;
-}
-.publier-title {
-    text-align: center;
-    margin: 20px 0;
-}
-
-.publier-form {
-    max-width: 400px;
-    margin: auto;
-    background: #fff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.publier-form input,
-.publier-form select {
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-}
-
-.publier-form button {
-    padding: 12px;
-    background: #5a86ff;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.publier-form button:hover {
-    background: #4170d1;
-}
-.image-preview {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.image-preview img {
-  width: 90px;
-  height: 90px;
-  object-fit: cover;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-
-form {
-  max-width: 400px;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+/* RESPONSIVE */
+@media(max-width:480px){
+  main { margin:20px; padding:20px; }
+  header { flex-direction:column; gap:10px; }
 }

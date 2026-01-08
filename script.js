@@ -6,6 +6,7 @@ const defaultProducts = [
     {id:1,name:"T-shirt Bleu",category:"vetements",size:"M",condition:"Très bon état avec étiquette",price:15,images:["2222.jpg","3333.webp","5555.webp"]},
     {id:2,name:"Chaussures Nike",category:"chaussures",size:"40",condition:"En bon état",price:50,images:["7777.webp","8888.webp","9999.avif"]},
     {id:3,name:"Sac à main",category:"accessoires",size:"-",condition:"État correct",price:25,images:["1010.jpg","1212.jpg","1313.jpg"]}
+    
 ];
 
 if(!localStorage.getItem("products")) localStorage.setItem("products",JSON.stringify(defaultProducts));
