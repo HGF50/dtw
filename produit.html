@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Détail Produit</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="product-page">
+
+    <!-- Galerie -->
+    <div class="product-gallery">
+        <img id="main-image" src="" alt="Produit">
+        <div class="gallery-thumbs" id="gallery-thumbs"></div>
+        <span class="like-btn" id="like-btn">🤍</span>
+        <span id="like-count"></span>
+    </div>
+
+    <!-- Info produit -->
+    <div class="product-info">
+        <h1 id="product-name"></h1>
+        <p class="product-summary" id="product-description"></p>
+        <p class="product-price" id="product-price"></p>
+
+        <div class="product-details">
+            <p><strong>Marque :</strong> <span id="product-brand"></span></p>
+            <p><strong>Taille :</strong> <span id="product-size"></span></p>
+            <p><strong>État :</strong> <span id="product-condition"></span></p>
+        </div>
+
+        <div class="product-actions">
+            <button id="buy-btn">Acheter</button>
+            <button id="message-btn">Message vendeur</button>
+        </div>
+    </div>
+
+</div>
+
+<script src="produit.js"></script>
+</body>
+</html>

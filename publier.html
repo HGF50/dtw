@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Publier un article</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2 class="publier-title">Publier un article</h2>
+
+<form id="publier-form" class="publier-form" enctype="multipart/form-data">
+
+    <input type="text" id="name" placeholder="Nom de l’article" required>
+    <input type="text" id="brand" placeholder="Marque">
+
+    <select id="category" required>
+        <option value="">Catégorie</option>
+        <option value="vetements">Vêtements</option>
+        <option value="chaussures">Chaussures</option>
+        <option value="accessoires">Accessoires</option>
+    </select>
+
+    <input type="text" id="size" placeholder="Taille / Pointure">
+    <select id="condition" required>
+        <option value="">État</option>
+        <option value="Neuf avec étiquette">Neuf avec étiquette</option>
+        <option value="Très bon état">Très bon état</option>
+        <option value="Bon état">Bon état</option>
+        <option value="État correct">État correct</option>
+    </select>
+
+    <textarea id="description" placeholder="Description de l’article"></textarea>
+    <input type="number" id="price" placeholder="Prix (€)" required>
+
+    <label>Photos (min 3)</label>
+    <input type="file" id="images" accept="image/*" multiple required>
+    <div class="image-preview" id="image-preview"></div>
+
+    <button type="submit">Publier</button>
+</form>
+
+<script src="publier.js"></script>
+</body>
+</html>
