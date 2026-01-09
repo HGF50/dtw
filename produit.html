@@ -10,18 +10,28 @@
 <div id="product"></div>
 
 <script>
-const product = JSON.parse(localStorage.getItem("product"));
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
 
-if (!product) {
-  document.body.innerHTML = "<p>Aucun produit trouvé</p>";
-} else {
-  document.getElementById("product").innerHTML = `
-    <img src="${product.image}" width="200">
-    <h2>${product.name}</h2>
-    <p>Prix : ${product.price} FCFA</p>
-    <p>${product.condition}</p>
-  `;
+if (!id) {
+  document.body.innerHTML = "<p>Produit introuvable</p>";
 }
+
+fetch("http://localhost:3000/products")
+  .then(res => res.json())
+  .then(products => {
+    const product = products.find(p => p.id == id);
+    if (!product) {
+      document.body.innerHTML = "<p>Produit introuvable</p>";
+      return;
+    }
+
+    document.getElementById("product").innerHTML = `
+      <img src="http://localhost:3000${product.image}" width="200">
+      <h2>${product.name}</h2>
+      <p>${product.price} FCFA</p>
+    `;
+  });
 </script>
 
 </body>

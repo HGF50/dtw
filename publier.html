@@ -1,30 +1,87 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<title>Produit</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publier un article</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>Détail du produit</h1>
-<div id="product"></div>
+<header>
+  <div class="logo">MonVinted</div>
+  <button onclick="window.location.href='index.html'">Retour</button>
+</header>
 
-<script>
-const product = JSON.parse(localStorage.getItem("product"));
+<main>
+  <h1 class="publish-title">Publier un article</h1>
 
-if (!product) {
-  document.body.innerHTML = "<p>Aucun produit trouvé</p>";
-} else {
-  document.getElementById("product").innerHTML = `
-    <img src="${product.image}" width="200">
-    <h2>${product.name}</h2>
-    <p>Prix : ${product.price} FCFA</p>
-    <p>${product.condition}</p>
-  `;
-}
-</script>
+  <form id="publier-form" class="publish-form">
 
+    <label>Titre</label>
+    <input type="text" id="name" required>
+
+    <label>Marque</label>
+    <input type="text" id="brand">
+
+    <label>Catégorie</label>
+    <select id="category" required>
+      <option value="">Choisir</option>
+      <option value="vetements">Vêtements</option>
+      <option value="chaussures">Chaussures</option>
+      <option value="accessoires">Accessoires</option>
+    </select>
+
+   <div class="filter-group">
+  <label for="size">Taille / Pointure</label>
+  <select id="size">
+    <option value="">Toutes</option>
+
+    <optgroup label="Vêtements">
+      <option value="XS">XS</option>
+      <option value="S">S</option>
+      <option value="M">M</option>
+      <option value="L">L</option>
+      <option value="XL">XL</option>
+    </optgroup>
+
+    <optgroup label="Chaussures">
+      <option value="38">38</option>
+      <option value="39">39</option>
+      <option value="40">40</option>
+      <option value="41">41</option>
+      <option value="42">42</option>
+      <option value="43">43</option>
+    </optgroup>
+
+    <optgroup label="Accessoires">
+      <option value="N/A">N/A</option>
+    </optgroup>
+  </select>
+</div>
+
+
+    <label>État</label>
+    <select id="condition" required>
+      <option value="">Choisir</option>
+      <option>Très bon état avec étiquette</option>
+      <option>Bon état</option>
+      <option>État correct</option>
+    </select>
+
+    <label>Description</label>
+    <textarea id="description" required></textarea>
+
+    <label>Prix (FCFA)</label>
+    <input type="number" id="price" required>
+
+    <label>Images</label>
+    <input type="file" id="images" accept="image/*" multiple required>
+
+    <button type="submit">Drop</button>
+  </form>
+</main>
+
+<script src="publier.js"></script>
 </body>
 </html>
-
-

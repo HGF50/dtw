@@ -1,40 +1,38 @@
 const productsContainer = document.getElementById("products");
 
-// Récupérer les articles publiés
-let articles = JSON.parse(localStorage.getItem("articles")) || [];
+async function loadProducts() {
+  const res = await fetch("http://localhost:3000/products");
+  const products = await res.json();
 
-// Produits par défaut
-const defaultProducts = [
-  
-];
+  productsContainer.innerHTML = "";
 
-// Fusionner les deux tableaux
-let allProducts = [...defaultProducts, ...articles];
+  if (products.length === 0) {
+    productsContainer.innerHTML = "<p>Aucun article publié</p>";
+    return;
+  }
 
-// Si aucun produit
-if(allProducts.length === 0){
-  productsContainer.innerHTML = "<p>Aucun article publié pour le moment.</p>";
+  products.forEach(product => {
+    const card = document.createElement("div");
+    card.className = "product-card";
+
+    card.innerHTML = `
+      <img src="http://localhost:3000${product.image}" alt="${product.name}">
+      <div class="info">
+        <h4>${product.name}</h4>
+        <p class="price">${product.price.toLocaleString()} FCFA</p>
+        ${product.size ? `<p>${product.size === "N/A" ? "Taille : N/A" : "Taille / Pointure : " + product.size}</p>` : ""}
+      </div>
+      <button class="view-btn">Voir le produit</button>
+    `;
+
+    // ✅ CLICK QUI MARCHE
+    card.querySelector(".view-btn").onclick = () => {
+      window.location.href = `produit.html?id=${product.id}`;
+    };
+
+    productsContainer.appendChild(card);
+  });
 }
 
-// Fonction pour afficher
-function displayProducts(list){
-    productsContainer.innerHTML = "";
-    list.forEach(product => {
-        const card = document.createElement("div");
-        card.className = "product-card";
-        card.innerHTML = `
-            <img src="${product.images ? product.images[0] : 'images/default.jpg'}" alt="${product.name}">
-            <div class="info">
-                <h4>${product.name}</h4>
-                <p class="price">${product.price.toLocaleString()} FCFA</p>
-                ${product.size ? `<p>${product.category === "vetements" ? "Taille" : "Pointure"} : ${product.size}</p>` : ""}
-                <p class="condition">${product.condition}</p>
-            </div>
-            <button class="view-btn">Voir le produit</button>
-        `;
-        productsContainer.appendChild(card);
-    });
-}
-
-// Affichage initial
-displayProducts(allProducts);
+// ✅ APPEL UNIQUE
+loadProducts();

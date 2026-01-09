@@ -1,4 +1,4 @@
-// ===========================// ===========================
+// ===========================
 // Récupération produit
 // ===========================
 const product = JSON.parse(localStorage.getItem("product"));
@@ -91,5 +91,3 @@ if (product) {
         alert("Fonction message vendeur à implémenter !");
     };
 }
-
-
