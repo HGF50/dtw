@@ -1,55 +1,12 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MonVinted</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-<header>
-  <div class="logo">MonVinted</div>
-  <input type="text" id="search" placeholder="Rechercher un produit...">
-  <button onclick="window.location.href='publier.html'">Publier un article</button>
-</header>
-
-<div class="filters">
-  <div class="filter-group">
-    <label>Catégorie</label>
-    <select id="category">
-      <option value="">Toutes</option>
-      <option value="vetements">Vêtements</option>
-      <option value="chaussures">Chaussures</option>
-      <option value="accessoires">Accessoires</option>
-    </select>
-  </div>
-
-  <div class="filter-group">
-    <label>Taille / Pointure</label>
-    <select id="size">
-      <option value="">Toutes</option>
-      <option value="S">S</option>
-      <option value="M">M</option>
-      <option value="L">L</option>
-      <option value="40">40</option>
-      <option value="41">41</option>
-    </select>
-  </div>
-
-  <div class="filter-group">
-    <label>Prix max (FCFA)</label>
-    <input type="number" id="max-price" placeholder="Ex: 20000">
-  </div>
-</div>
-
-<!-- ✅ CONTENEUR VIDE, JS S'OCCUPE DU RESTE -->
-<div id="products" class="products-grid"></div>
-
-<footer>
-  &copy; 2026 MonVinted - Tous droits réservés
-</footer>
-
-<script src="script.js"></script>
-</body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pinspire - Découvrez l'inspiration</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
